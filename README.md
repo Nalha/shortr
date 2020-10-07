@@ -2,27 +2,31 @@
 
 An url shortener app made by Jesper Håsteen as a demo project.
 
-### Build & Run the application
+### Quick start
+Requires Java 11+.
 ```shell script
 $ ./mvnw spring-boot:run
 ``` 
-Requires port 8080 to be free, uses embedded mongodb to run standalone without any additional configuration.
+Done, visit http://localhost:8080 for app.
 
-#### Run tests
-This will build and run all unit and integration tests. 
+#### Run tests 
 ```shell script
-$ ./mvnw clean verify
+$ ./mvnw verify
 ```
 
 #### Build docker image
+Requires docker.
 ```shell script
-$ ./mvnw clean verify -P docker
+$ ./mvnw verify -P docker
 ``` 
-This will create a local docker image simply called "shortr" with no tags.
+Creates a local docker image simply called `shortr` with no tags, run with:
+```shell script
+$ docker run -p 8080:8080 shortr
+``` 
 
 #### Run OWASP dependency check
 ```shell script
-$ ./mvnw clean verify -P dependencyCheck
+$ ./mvnw verify -P dependencyCheck
 ``` 
 This will download CVE databases and check for known vulnerabilities in included dependencies.
 
