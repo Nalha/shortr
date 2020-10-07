@@ -7,7 +7,7 @@ Requires Java 11+.
 ```shell script
 $ ./mvnw spring-boot:run
 ``` 
-Done, visit http://localhost:8080 for app.
+Visit http://localhost:8080 for app.
 
 #### Run tests 
 ```shell script
