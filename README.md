@@ -2,15 +2,13 @@
 
 An url shortener app made by Jesper Håsteen as a demo project.
 
-### Build & run the application
+### Build & Run the application
 ```shell script
 $ ./mvnw spring-boot:run
 ``` 
-This builds and starts the application on port 8080 and an embedded mongoDB on port 12345. 
-Replace URL/port in `src/main/resources/application.yml` and change scope of the `de.flapdoodle.embed.mongo` dependency 
-in `pom.xml` if you wish to use another mongoDB server.
+Requires port 8080 to be free, uses embedded mongodb to run standalone without any additional configuration.
 
-#### Build and test
+#### Run tests
 This will build and run all unit and integration tests. 
 ```shell script
 $ ./mvnw clean verify
@@ -28,3 +26,7 @@ $ ./mvnw clean verify -P dependencyCheck
 ``` 
 This will download CVE databases and check for known vulnerabilities in included dependencies.
 
+### Configure mongoDB
+To run multiple instances of the application you need to configure it to use another mongoDB, 
+simply replace `spring.data.mongodb.host` and/or `spring.data.mongodb.port` in `src/main/resources/application.yml` 
+and add any required username and password. 
