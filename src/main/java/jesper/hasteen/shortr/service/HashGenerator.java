@@ -13,8 +13,8 @@ public class HashGenerator {
     /**
      * Creates a hashed string with an input string as seed.
      *
-     * @param seed a string used as seed for the hash, the same seed will always create the same hash.
-     * @return an alphanumerical hash that is HASH_LENGTH long.
+     * @param seed any string used as seed for the hash.
+     * @return an alphanumerical hash that is {@link #HASH_LENGTH} long.
      */
     public String generate(String seed) {
         return generateRandomString(seed.hashCode());

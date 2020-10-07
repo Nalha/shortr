@@ -26,7 +26,7 @@ public class UrlService {
      * Stores the given string in database and creates a hash it can be fetched with later.
      *
      * @param longUrl Any string.
-     * @return A hash id.
+     * @return The id for the saved {@link ShortUrl}.
      */
     public String createAndStoreShortHash(String longUrl) {
         final String shortHash = hashGenerator.generate(longUrl);
@@ -36,10 +36,10 @@ public class UrlService {
     }
 
     /**
-     * Gets the string previously saved by {@link #createAndStoreShortHash(String)}
+     * Gets a string previously saved by {@link #createAndStoreShortHash(String)}
      *
-     * @param hash A hashed id.
-     * @return An optional of the saved string.
+     * @param hash An id for a {@link ShortUrl}.
+     * @return An optional result.
      */
     public Optional<String> getLongUrl(String hash) {
         return shortUrlRepository
