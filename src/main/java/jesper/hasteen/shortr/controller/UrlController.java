@@ -1,13 +1,17 @@
 package jesper.hasteen.shortr.controller;
 
 import jesper.hasteen.shortr.service.UrlService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 @RestController
 public class UrlController {
 
+    private final Logger log = LoggerFactory.getLogger(UrlController.class);
     private final UrlService urlService;
 
     public UrlController(UrlService urlService) {
@@ -18,16 +22,23 @@ public class UrlController {
     public ResponseEntity<Object> getShortUrl(@ModelAttribute LongUrlForm form) {
         validateCreateParams(form);
         String longUrl = form.getLongUrl();
-        String hash = urlService.createShortHash(longUrl);
-        return buildCreateResponseEntity(hash);
+        String shortHash = urlService.createAndStoreShortHash(longUrl);
+        return buildCreateResponseEntity(shortHash);
     }
 
     @GetMapping("/r/{shortUrl}")
     public ResponseEntity<Object> redirect(@PathVariable String shortUrl) {
-        return urlService.getLongUri(shortUrl)
+        return urlService.getLongUrl(shortUrl)
                 .map(this::buildRedirectResponseEntity)
                 .orElse(buildNotFoundResponseEntity());
     }
+
+    @ExceptionHandler(Exception.class)
+    public RedirectView handleException(Exception e) {
+        log.error("Exception caught by ExceptionHandler.", e);
+        return new RedirectView("/?error=500");
+    }
+
 
     private void validateCreateParams(LongUrlForm form) {
         if (form == null) {
@@ -61,7 +72,7 @@ public class UrlController {
                 .header("Location", longUri)
                 .build();
     }
-    
+
     public static class UrlControllerException extends RuntimeException {
         public UrlControllerException(String s) {
             super(s);

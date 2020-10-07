@@ -25,23 +25,23 @@ public class UrlService {
     /**
      * Stores the given string in database and creates a hash it can be fetched with later.
      *
-     * @param str Any string.
+     * @param longUrl Any string.
      * @return A hash id.
      */
-    public String createShortHash(String str) {
-        final String shortHash = hashGenerator.generate(str);
-        final ShortUrl shortUrl = new ShortUrl(shortHash, str);
+    public String createAndStoreShortHash(String longUrl) {
+        final String shortHash = hashGenerator.generate(longUrl);
+        final ShortUrl shortUrl = new ShortUrl(shortHash, longUrl);
         shortUrlRepository.save(shortUrl);
         return shortUrl.getHashId();
     }
 
     /**
-     * Gets the string previously saved by {@link #createShortHash(String)}
+     * Gets the string previously saved by {@link #createAndStoreShortHash(String)}
      *
      * @param hash A hashed id.
      * @return An optional of the saved string.
      */
-    public Optional<String> getLongUri(String hash) {
+    public Optional<String> getLongUrl(String hash) {
         return shortUrlRepository
                 .findById(hash)
                 .map(ShortUrl::getLongUri);

@@ -2,12 +2,16 @@
 
 An url shortener app made by Jesper Håsteen as a demo project.
 
-## Build
+### Build & run the application
+```shell script
+$ ./mvnw spring-boot:run
+``` 
+This builds and starts the application on port 8080 and an embedded mongoDB on port 12345. 
+Replace URL/port in `src/main/resources/application.yml` and change scope of the `de.flapdoodle.embed.mongo` dependency 
+in `pom.xml` if you wish to use another mongoDB server.
 
-Maven is used to build this project, you don't have to have maven installed since it's included by spring boot.
-
-#### Simple build
-This will build and run all unit and integration tests.
+#### Build and test
+This will build and run all unit and integration tests. 
 ```shell script
 $ ./mvnw clean verify
 ```
@@ -24,10 +28,3 @@ $ ./mvnw clean verify -P dependencyCheck
 ``` 
 This will download CVE databases and check for known vulnerabilities in included dependencies.
 
-### Run the application
-```shell script
-$ ./mvnw spring-boot:run
-``` 
-This starts the application itself on port 8080 and an embedded mongodb on port 12345. 
-The same mongodb port is also used by integration test so do not run the application and tests at same time.
-Replace URL/port in `src/main/resources/application.yml` if you wish to use another db server.

@@ -42,6 +42,7 @@
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>
 			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<!-- Set scope to test if you don't want embedded mongoDB in runtime -->
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -50,6 +51,7 @@
 		<dependencies>
 			<dependency>
 				<!-- 1.18 Used by de.flapdoodle.embed.mongo 2.2.0 CVE-2019-12402 -->
+				<!-- Remove this block to see the dependencyCheck profile fail -->
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>1.20</version>

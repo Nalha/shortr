@@ -1,7 +1,6 @@
 package jesper.hasteen.shortr;
 
 import jesper.hasteen.shortr.service.UrlService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -14,13 +13,17 @@ import java.time.temporal.ChronoUnit;
 @EnableScheduling
 public class ShortrApplication {
 
-	@Autowired
-	UrlService urlService;
+	final UrlService urlService;
+
+	public ShortrApplication(UrlService urlService) {
+		this.urlService = urlService;
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ShortrApplication.class, args);
 	}
 
+	// TODO: Replace with cluster central scheduling if running multiple instances.
 	@Scheduled(fixedDelay = 60 * 60 * 1000)
 	public void deleteSchedule() {
 		urlService.deleteEntriesOlderThan(Instant.now().minus(30, ChronoUnit.DAYS));
